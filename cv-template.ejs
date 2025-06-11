@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= resume.fullName %> - Resume</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 40px;
+      color: #333;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 100px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #004080;
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+    .section-title {
+      border-bottom: 2px solid #004080;
+      color: #004080;
+      font-size: 18px;
+      margin-bottom: 10px;
+      padding-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .item {
+      margin-bottom: 10px;
+    }
+    .item h4 {
+      margin: 0;
+      font-size: 16px;
+      color: #222;
+    }
+    .item p {
+      margin: 2px 0 0;
+      font-size: 14px;
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .skills span {
+      background-color: #eef2f7;
+      color: #004080;
+      padding: 5px 10px;
+      margin: 5px 5px 0 0;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <% if (resume.photo) { %>
+      <img src="<%= resume.photo %>" alt="Profile Photo">
+    <% } %>
+    <h1><%= resume.fullName %></h1>
+    <p><%= resume.email %> | <%= resume.phone %></p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Summary</div>
+    <p><%= resume.summary || 'N/A' %></p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    <% resume.education.forEach(e => { %>
+      <div class="item">
+        <h4><%= e.degree %> - <%= e.institution %></h4>
+        <p>Year: <%= e.year %></p>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+    <% resume.experience.forEach(ex => { %>
+      <div class="item">
+        <h4><%= ex.role %> at <%= ex.company %></h4>
+        <p><%= ex.duration %></p>
+        <p><%= ex.details %></p>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Skills</div>
+    <div class="skills">
+      <% resume.skills.forEach(skill => { %>
+        <span><%= skill %></span>
+      <% }) %>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Academic Scores</div>
+    <p>10th Grade: <%= resume.tenth %>%</p>
+    <% if (resume.twelfth) { %>
+      <p>12th Grade: <%= resume.twelfth %>%</p>
+    <% } %>
+  </div>
+
+  <% if (resume.declaration) { %>
+    <div class="section">
+      <div class="section-title">Declaration</div>
+      <p>I hereby declare that the information given above is true to the best of my knowledge.</p>
+    </div>
+  <% } %>
+</body>
+</html>
